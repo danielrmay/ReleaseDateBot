@@ -99,7 +99,7 @@ games.append(Game(["Star Wars: Battlefront", "Star Wars Battlefront", "Battlefro
 games.append(Game(["Rock Band 4"], True, datetime(2015, 10, 06, 0, 0, 0), 'https://en.wikipedia.org/wiki/Rock_Band_4'))
 games.append(Game(["NHL 16", "NHL16"], True, datetime(2015, 9, 9, 0, 0, 0), 'https://en.wikipedia.org/wiki/NHL_(video_game_series\)'))
 games.append(Game(["Tom Clancy's Rainbow Six Siege", "Rainbow Six Siege", "Tom Clancys Rainbow Six Siege"], True, datetime(2015, 10, 13, 0, 0, 0), 'https://en.wikipedia.org/wiki/Tom_Clancy''s_Rainbow_Six_Siege'))
-games.append(Game(["Assassin's Creed Syndicate", "AC: Syndicate", "AC Syndicate"], True, datetime(2015, 10, 23, 0, 0, 0), 'https://en.wikipedia.org/wiki/Assassin''s_Creed_Syndicate'))
+games.append(Game(["Assassin's Creed Syndicate", "AC: Syndicate", "AC Syndicate"], True, datetime(2015, 10, 23, 0, 0, 0), 'https://en.wikipedia.org/wiki/Assassin\'s_Creed_Syndicate'))
 
 # Release date unannounced:
 games.append(Game(["Final Fantasy XV"], False, datetime(1970, 1, 1, 0, 0, 0), 'https://en.wikipedia.org/wiki/Final_Fantasy_XV'))
