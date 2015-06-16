@@ -14,8 +14,9 @@ from pytz import timezone
 from rd_config import *
 
 class Game:
-	def __init__(self, names, releaseDate, wikiLink):
+	def __init__(self, names, hasReleaseDate, releaseDate, wikiLink):
 		self.names = names
+		self.hasReleaseDate = hasReleaseDate
 		self.releaseDate = releaseDate
 		self.wikiLink = wikiLink
 
@@ -79,9 +80,41 @@ match_prefix = '!ReleaseDate'
 match_prefix_count = 12
 
 games = []
-games.append(Game(['Fallout 4', 'Fallout', 'Fallout4', 'Fall out', 'Fall out 4'], datetime(2015, 11, 10, 0, 0, 0), 'https://en.wikipedia.org/wiki/Fallout_4'))
-games.append(Game(['Batman: Arkham Knight', 'Batman Arkham Knight', "Arkham Knight"], datetime(2015, 06, 23, 0, 0, 0), 'https://en.wikipedia.org/wiki/Batman:_Arkham_Knight'))
-games.append(Game(['Final Fantasy XIV: Heavensward', 'Final Fantasy XIV', "Final Fantasy Heavensward", "Heavensward"], datetime(2015, 06, 23, 0, 0, 0), 'https://en.wikipedia.org/wiki/Final_Fantasy_XIV:_A_Realm_Reborn'))
+games.append(Game(['Fallout 4', 'Fallout', 'Fallout4', 'Fall out', 'Fall out 4'], True, datetime(2015, 11, 10, 0, 0, 0), 'https://en.wikipedia.org/wiki/Fallout_4'))
+games.append(Game(['Batman: Arkham Knight', 'Batman Arkham Knight', "Arkham Knight"], True, datetime(2015, 06, 23, 0, 0, 0), 'https://en.wikipedia.org/wiki/Batman:_Arkham_Knight'))
+games.append(Game(['Final Fantasy XIV: Heavensward', 'Final Fantasy XIV', "Final Fantasy Heavensward", "Heavensward"], True, datetime(2015, 06, 23, 0, 0, 0), 'https://en.wikipedia.org/wiki/Final_Fantasy_XIV:_A_Realm_Reborn'))
+games.append(Game(['The Division', "Tom Clancy's The Division", "Tom Clancy: The Division"], True, datetime(2016, 03, 8, 0, 0, 0), "https://en.wikipedia.org/wiki/Tom_Clancy%27s_The_Division"))
+games.append(Game(['Need for Speed'], True, datetime(2015, 11, 03, 0, 0, 0), 'https://en.wikipedia.org/wiki/Need_for_Speed_(2015_video_game\)'))
+games.append(Game(['Rise of the Tomb Raider', 'New Tomb Raider', 'Tomb Raider'], True, datetime(2015, 11, 10, 0, 0, 0), 'https://en.wikipedia.org/wiki/Rise_of_the_Tomb_Raider'))
+games.append(Game(["Mirror's Edge Catalyst", "Mirror's Edge 2", "Mirrors Edge Catalyst", "Mirrors Edge 2"], True, datetime(2016, 02, 23, 0, 0, 0), 'https://en.wikipedia.org/wiki/Mirror%27s_Edge_Catalyst'))
+games.append(Game(["F1 2015", "F1"], True, datetime(2015, 07, 21, 0, 0, 0), 'https://en.wikipedia.org/wiki/F1_2015_(video_game\)'))
+games.append(Game(["MotoGP 2015", "F1"], True, datetime(2015, 06, 24, 0, 0, 0), 'https://en.wikipedia.org/wiki/MotoGP_15'))
+games.append(Game(["Mad Max"], True, datetime(2015, 9, 04, 0, 0, 0), 'https://en.wikipedia.org/wiki/Mad_Max_(2015_video_game\)'))
+games.append(Game(["FIFA 16", "FIFA 2016", "FIFA Soccer 16"], True, datetime(2015, 9, 15, 0, 0, 0), 'https://en.wikipedia.org/wiki/FIFA_16'))
+games.append(Game(["Skylanders: Superchargers", "Skylanders Superchargers"], True, datetime(2015, 9, 20, 0, 0, 0), 'https://en.wikipedia.org/wiki/Skylanders:_SuperChargers'))
+games.append(Game(["LEGO Dimensions"], True, datetime(2015, 9, 29, 0, 0, 0), 'https://en.wikipedia.org/wiki/Lego_Dimensions'))
+games.append(Game(["Halo 5: Guardians", "Halo 5"], True, datetime(2015, 10, 27, 0, 0, 0), 'https://en.wikipedia.org/wiki/Halo_5:_Guardians'))
+games.append(Game(["Call of Duty: Black Ops III", "Black Ops 3", "Call of Duty: Black Ops 3", "Call of Duty Black Ops III"], True, datetime(2015, 11, 06, 0, 0, 0), 'https://en.wikipedia.org/wiki/Call_of_Duty:_Black_Ops_III'))
+games.append(Game(["Star Wars: Battlefront", "Star Wars Battlefront", "Battlefront"], True, datetime(2015, 11, 20, 0, 0, 0), 'https://en.wikipedia.org/wiki/Star_Wars_Battlefront_(2015_video_game\)'))
+games.append(Game(["Rock Band 4"], True, datetime(2015, 10, 06, 0, 0, 0), 'https://en.wikipedia.org/wiki/Rock_Band_4'))
+games.append(Game(["NHL 16", "NHL16"], True, datetime(2015, 9, 9, 0, 0, 0), 'https://en.wikipedia.org/wiki/NHL_(video_game_series\)'))
+games.append(Game(["Tom Clancy's Rainbow Six Siege", "Rainbow Six Siege", "Tom Clancys Rainbow Six Siege"], True, datetime(2015, 10, 13, 0, 0, 0), 'https://en.wikipedia.org/wiki/Tom_Clancy''s_Rainbow_Six_Siege'))
+games.append(Game(["Assassin's Creed Syndicate", "AC: Syndicate", "AC Syndicate"], True, datetime(2015, 10, 23, 0, 0, 0), 'https://en.wikipedia.org/wiki/Assassin''s_Creed_Syndicate'))
+
+# Release date unannounced:
+games.append(Game(["Final Fantasy XV"], False, datetime(1970, 1, 1, 0, 0, 0), 'https://en.wikipedia.org/wiki/Final_Fantasy_XV'))
+games.append(Game(["Street Fighter V", "Street Fighter"], False, datetime(1970, 1, 1, 0, 0, 0), 'https://en.wikipedia.org/wiki/Street_Fighter_V'))
+games.append(Game(["Tony Hawk's Pro Skater 5", "Pro Skater 5", "THPS5"], False, datetime(1970, 1, 1, 0, 0, 0), 'https://en.wikipedia.org/wiki/Tony_Hawk%27s_Pro_Skater_5'))
+games.append(Game(["Doom"], False, datetime(1970, 1, 1, 0, 0, 0), 'https://en.wikipedia.org/wiki/Doom_(2016_video_game\)'))
+games.append(Game(["Dishonored 2"], False, datetime(1970, 1, 1, 0, 0, 0), 'https://en.wikipedia.org/wiki/Dishonored_2'))
+games.append(Game(["Battleborn"], False, datetime(1970, 1, 1, 0, 0, 0), 'https://en.wikipedia.org/wiki/Battleborn_(video_game\)'))
+games.append(Game(["Dead Island 2"], False, datetime(1970, 1, 1, 0, 0, 0), 'https://en.wikipedia.org/wiki/Dead_Island_2'))
+games.append(Game(["Unravel"], False, datetime(1970, 1, 1, 0, 0, 0), 'https://en.wikipedia.org/wiki/Unravel_(video_game\)'))
+games.append(Game(["Fable Legends"], False, datetime(1970, 1, 1, 0, 0, 0), 'https://en.wikipedia.org/wiki/Fable_Legends'))
+games.append(Game(["Deux Ex: Mankind Divided", "Deus Ex Mankind Divided"], False, datetime(1970, 1, 1, 0, 0, 0), 'https://en.wikipedia.org/wiki/Deus_Ex:_Mankind_Divided'))
+games.append(Game(["Dark Souls III", "Dark Souls 3"], False, datetime(1970, 1, 1, 0, 0, 0), 'https://en.wikipedia.org/wiki/Dark_Souls_III'))
+games.append(Game(["Tom Clancy's Ghost Recon Wildlands", "Ghost Recon Wildlands", "Tom Clancys Ghost Recon Wildlands"], False,  datetime(1970, 1, 1, 0, 0, 0), 'https://en.wikipedia.org/wiki/Tom_Clancy%27s_Ghost_Recon_Wildlands'))
+games.append(Game(["Plants vs. Zombies: Garden Warfare 2", "Garden Warfare 2", "Plants vs Zombies Garden Warfare 2", "Plants vs Zombies: Garden Warfare 2" ], False, datetime(1970, 1, 1, 0, 0, 0), 'https://en.wikipedia.org/wiki/Plants_vs._Zombies:_Garden_Warfare_2'))
 
 delta_tz = timezone('US/Pacific')
 
@@ -109,9 +142,10 @@ while True:
 	time.sleep(2)
 	# Gaming subreddit comments:
 	#multi_reddits = r.get_subreddit('test+fallout+gaming+games')
-	multi_reddits = r.get_subreddit('test+fallout')
-	comments = multi_reddits.get_comments()
+	#multi_reddits = r.get_subreddit('test+fallout')
+	#comments = multi_reddits.get_comments()
 
+	comments = praw.helpers.comment_stream(r, 'all', limit=None)
 	#print("Retrieved comments: " + str(len(list(comments))))
 	# Test submission:
 	# submission = r.get_submission(submission_id='39yq1s')
@@ -133,32 +167,40 @@ while True:
 				if game.containsName(gamestring):
 					print("Matched game '" + gamestring + "' to " + game.names[0])
 					gameFound = True
-					# convert 
-					utc_datetime = datetime.utcnow()
-					utc_datetime = utc_datetime.replace(tzinfo=pytz.utc)
-					current_datetime = utc_datetime.astimezone(delta_tz)
-					game_releasedate = game.releaseDate.replace(tzinfo=delta_tz)
 
-					# figure out relative time delta between now until release date
-					rd = relativedelta(current_datetime, game_releasedate)
+					if game.hasReleaseDate:
+						# convert 
+						utc_datetime = datetime.utcnow()
+						utc_datetime = utc_datetime.replace(tzinfo=pytz.utc)
+						current_datetime = utc_datetime.astimezone(delta_tz)
+						game_releasedate = game.releaseDate.replace(tzinfo=delta_tz)
 
-					if rd.years >= 0 and rd.months >= 0 and rd.days >= 0 and rd.hours >= 0 and rd.minutes >= 0 and rd.seconds >= 0:
-						output = "**[{0}]({1})** has been released!".format(game.names[0], game.wikiLink)
+						# figure out relative time delta between now until release date
+						rd = relativedelta(current_datetime, game_releasedate)
+
+						if rd.years >= 0 and rd.months >= 0 and rd.days >= 0 and rd.hours >= 0 and rd.minutes >= 0 and rd.seconds >= 0:
+							output = "**[{0}]({1})** has been released!".format(game.names[0], game.wikiLink)
+						else:
+							years = abs(rd.years)
+							months = abs(rd.months)
+							days = abs(rd.days)
+							hours = abs(rd.hours)
+							minutes = abs(rd.minutes)
+							seconds = abs(rd.seconds)
+
+							output = buildOutput(game, years, months, days, hours, minutes, seconds)
+						
+						output += bot_footer
+						print(output)
+						print("Posting reply.")
+						comment.reply(output)
+						replied = True
 					else:
-						years = abs(rd.years)
-						months = abs(rd.months)
-						days = abs(rd.days)
-						hours = abs(rd.hours)
-						minutes = abs(rd.minutes)
-						seconds = abs(rd.seconds)
+						comment_body = "Sorry, **[{0}]({1})** has been announced but no specific release date has been published yet.\r\n\r\nIf this message is incorrect please let me know via PM!".format(game.names[0], game.wikiLink)
+						comment_body += bot_footer
+						comment.reply(comment_body)
 
-						output = buildOutput(game, years, months, days, hours, minutes, seconds)
-					
-					output += bot_footer
-					print(output)
-					print("Posting reply.")
-					comment.reply(output)
-					replied = True
+						replied = True
 
 			if not gameFound:
 				comment_body = "Sorry, I'm not able to recognize that game's release date yet. ¯\\\_(ツ)_/¯ \r\n\r\nI have logged this interaction and my author will add it soon!"
