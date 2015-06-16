@@ -59,3 +59,7 @@ docs/_build/
 # PyBuilder
 target/
 
+# ReleaseDateBot specifics
+rd_config.py
+unknown_game.txt
+comments_replied_to.txt
