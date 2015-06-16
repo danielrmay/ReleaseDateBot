@@ -11,6 +11,7 @@ from datetime import date
 from dateutil.relativedelta import relativedelta
 from dateutil import tz
 from pytz import timezone
+from rd_config import *
 
 class Game:
 	def __init__(self, names, releaseDate, wikiLink):
@@ -86,7 +87,7 @@ delta_tz = timezone('US/Pacific')
 
 user_agent = ("ReleaseDate v" + version)
 r = praw.Reddit(user_agent = user_agent)
-r.login('','')
+r.login(REDDIT_USERNAME, REDDIT_PASSWORD)
 
 if not os.path.isfile(unknown_game_path):
     open(unknown_game_path, 'a').close()
