@@ -116,6 +116,7 @@ games.append(Game(["Dark Souls III", "Dark Souls 3"], False, datetime(1970, 1, 1
 games.append(Game(["Tom Clancy's Ghost Recon Wildlands", "Ghost Recon Wildlands", "Tom Clancys Ghost Recon Wildlands"], False,  datetime(1970, 1, 1, 0, 0, 0), 'https://en.wikipedia.org/wiki/Tom_Clancy%27s_Ghost_Recon_Wildlands'))
 games.append(Game(["Plants vs. Zombies: Garden Warfare 2", "Garden Warfare 2", "Plants vs Zombies Garden Warfare 2", "Plants vs Zombies: Garden Warfare 2" ], False, datetime(1970, 1, 1, 0, 0, 0), 'https://en.wikipedia.org/wiki/Plants_vs._Zombies:_Garden_Warfare_2'))
 
+hl3_names = ["Half-Life 3", "Half Life 3", "HL3"]
 delta_tz = timezone('US/Pacific')
 
 user_agent = ("ReleaseDate v" + version)
@@ -140,17 +141,9 @@ else:
 
 while True:
 	time.sleep(2)
-	# Gaming subreddit comments:
-	#multi_reddits = r.get_subreddit('test+fallout+gaming+games')
-	#multi_reddits = r.get_subreddit('test+fallout')
-	#comments = multi_reddits.get_comments()
-
+	
 	comments = praw.helpers.comment_stream(r, 'all', limit=None)
-	#print("Retrieved comments: " + str(len(list(comments))))
-	# Test submission:
-	# submission = r.get_submission(submission_id='39yq1s')
-	# comments = praw.helpers.flatten_tree(submission.comments)
-
+	
 	for comment in comments:
 		# Check to see if we have replied to this comment already
 		if comment.id in comments_replied_to:
@@ -162,56 +155,66 @@ while True:
 			gamestring = comment.body[len(match_prefix):].strip()
 
 			gameFound = False
-			# check if this game exists in our game array
-			for game in games:
-				if game.containsName(gamestring):
-					print("Matched game '" + gamestring + "' to " + game.names[0])
+
+			# HL3 easter egg
+			for hl3_name in hl3_names:
+				if gamestring.lower() == hl3_name.lower():
+					print("Found a HL3 request. Replying...")
 					gameFound = True
-
-					if game.hasReleaseDate:
-						# convert 
-						utc_datetime = datetime.utcnow()
-						utc_datetime = utc_datetime.replace(tzinfo=pytz.utc)
-						current_datetime = utc_datetime.astimezone(delta_tz)
-						game_releasedate = game.releaseDate.replace(tzinfo=delta_tz)
-
-						# figure out relative time delta between now until release date
-						rd = relativedelta(current_datetime, game_releasedate)
-
-						if rd.years >= 0 and rd.months >= 0 and rd.days >= 0 and rd.hours >= 0 and rd.minutes >= 0 and rd.seconds >= 0:
-							output = "**[{0}]({1})** has been released!".format(game.names[0], game.wikiLink)
-						else:
-							years = abs(rd.years)
-							months = abs(rd.months)
-							days = abs(rd.days)
-							hours = abs(rd.hours)
-							minutes = abs(rd.minutes)
-							seconds = abs(rd.seconds)
-
-							output = buildOutput(game, years, months, days, hours, minutes, seconds)
-						
-						output += bot_footer
-						print(output)
-						print("Posting reply.")
-						comment.reply(output)
-						replied = True
-					else:
-						comment_body = "Sorry, **[{0}]({1})** has been announced but no specific release date has been published yet.\r\n\r\nIf this message is incorrect please let me know via PM!".format(game.names[0], game.wikiLink)
-						comment_body += bot_footer
-						comment.reply(comment_body)
-
-						replied = True
+					comment_body = "Gah! Half-Life 3 will never be released if you keep talking about it!"
+					comment_body += bot_footer
+					comment.reply(comment_body)
+					replied = True
 
 			if not gameFound:
-				comment_body = "Sorry, I'm not able to recognize that game's release date yet. ¯\\\_(ツ)_/¯ \r\n\r\nI have logged this interaction and my author will add it soon!"
-				comment_body += bot_footer
-				comment.reply(comment_body)
+				# check if this game exists in our game array
+				for game in games:
+					if game.containsName(gamestring):
+						print("Matched game '" + gamestring + "' to " + game.names[0])
+						gameFound = True
 
-				with open(unknown_game_path, "a") as f:
-					f.write(gamestring + "\n")   
+						if game.hasReleaseDate:
+							# convert 
+							utc_datetime = datetime.utcnow()
+							utc_datetime = utc_datetime.replace(tzinfo=pytz.utc)
+							current_datetime = utc_datetime.astimezone(delta_tz)
+							game_releasedate = game.releaseDate.replace(tzinfo=delta_tz)
 
-				replied = True
+							# figure out relative time delta between now until release date
+							rd = relativedelta(current_datetime, game_releasedate)
 
+							if rd.years >= 0 and rd.months >= 0 and rd.days >= 0 and rd.hours >= 0 and rd.minutes >= 0 and rd.seconds >= 0:
+								output = "**[{0}]({1})** has been released!".format(game.names[0], game.wikiLink)
+							else:
+								years = abs(rd.years)
+								months = abs(rd.months)
+								days = abs(rd.days)
+								hours = abs(rd.hours)
+								minutes = abs(rd.minutes)
+								seconds = abs(rd.seconds)
+
+								output = buildOutput(game, years, months, days, hours, minutes, seconds)
+							
+							output += bot_footer
+							print("Posting reply:\r\n\r\n {0}").format(output)
+							comment.reply(output)
+							replied = True
+						else:
+							comment_body = "Sorry, **[{0}]({1})** has been announced but no specific release date has been published yet.\r\n\r\nIf this message is incorrect please let me know via PM!".format(game.names[0], game.wikiLink)
+							comment_body += bot_footer
+							comment.reply(comment_body)
+
+							replied = True
+
+				if not gameFound:
+					comment_body = "Sorry, I'm not able to recognize that game's release date yet. ¯\\\_(ツ)_/¯ \r\n\r\nI have logged this interaction and my author will add it soon!"
+					comment_body += bot_footer
+					comment.reply(comment_body)
+
+					with open(unknown_game_path, "a") as f:
+						f.write(gamestring + " ~ " + comment.id + "\n")   
+
+					replied = True
 
 		if replied:
 			comments_replied_to.append(comment.id)
